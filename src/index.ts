@@ -1,13 +1,7 @@
-import express from 'express';
-
-const app = express();
-
-//Routing 
-app.get('/', (req, res) => {
-  res.send('Hello World in express | TypoScript');
-});
+import colors from 'colors';
+import server from './server';
 
 const port = process.env.PORT || 4000;
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+server.listen(port, () => {
+  console.log(colors.magenta.bold(`Server is running on http://localhost:${port}`));
 });
