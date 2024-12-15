@@ -11,6 +11,7 @@
   "author": "Oscar Ballesteros",
   "license": "ISC",
   "dependencies": {
+    "colors": "^1.4.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "mongoose": "^8.8.4"
