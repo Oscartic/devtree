@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { createAccount, login } from './handlers';
+import { handlerInputErrors } from './middleware/validations';
 
 const router = Router();
 
@@ -18,6 +19,7 @@ router.post('/auth/register',
   body('password')
     .isLength({ min: 6 })
     .withMessage('Password is too short (min 6 characters)'),
+  handlerInputErrors,
   createAccount,
 );
 
@@ -29,6 +31,7 @@ router.post('/auth/login',
     .notEmpty()
     .isLength({ min: 6 })
     .withMessage('Password is required)'),
+    handlerInputErrors,
   login
 );
 
