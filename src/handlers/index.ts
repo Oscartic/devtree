@@ -6,14 +6,6 @@ import { hasHashedPassword, comparePassword } from '../utils/auth';
 
 export const createAccount = async (req: Request, res: Response): Promise<void> => {
   try {
-
-    //error handle 
-    let errors = validationResult(req); 
-    if(!errors.isEmpty()) {
-      res.status(400).send({ errors: errors.array() });
-      return;
-    }
-
     const { email, password } = req.body;
     const userExists = await User.findOne({ email });
     if (userExists) {
@@ -39,13 +31,6 @@ export const createAccount = async (req: Request, res: Response): Promise<void> 
 
 export const login = async (req: Request, res: Response): Promise<void> => {
   try {
-    
-      //error handle 
-      let errors = validationResult(req); 
-      if(!errors.isEmpty()) {
-        res.status(400).send({ errors: errors.array() });
-        return;
-      }
     const { email, password } = req.body;
     // is user registered?
     const identifyUser = await User.findOne({ email });
