@@ -14,14 +14,15 @@ export default function RegisterView() {
     password_confirmation: '',
   };
 
-  const { register, watch, handleSubmit, formState: { errors } } = useForm<RegisterForm>({ defaultValues: initialValues });
+  const { register, watch, reset, handleSubmit, formState: { errors } } = useForm<RegisterForm>({ defaultValues: initialValues });
 
   const password = watch('password');
   
   const handleRegister = async (formData : RegisterForm) => {
     try {
-      const { data } = await axios.post('http://localhost:4000/api/auth/register', formData);
+      const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, formData);
       console.log(data);
+      reset();
     } catch (error) {
       if(isAxiosError(error) && error.response) {
         console.log('[authRegister] » axios',  error.response.data.error);
