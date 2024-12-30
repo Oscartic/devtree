@@ -11,7 +11,7 @@ router.post('/auth/register',
     .notEmpty()
     .withMessage('Handle is required'),
   body('name')
-    .isEmail()
+    .notEmpty()
     .withMessage('Name is required'),
   body('email')
     .isEmail()
