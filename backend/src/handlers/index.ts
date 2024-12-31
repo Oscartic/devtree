@@ -1,5 +1,4 @@
 import type { Request, Response } from 'express';
-import { validationResult } from 'express-validator';
 import slug from 'slug';
 import User from '../models/User';
 import { hasHashedPassword, comparePassword } from '../utils/auth';
