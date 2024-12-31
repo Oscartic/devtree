@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import axios, { isAxiosError } from 'axios';
+import { isAxiosError } from 'axios';
+import { toast } from 'sonner';
 import type { RegisterForm } from '../types'
 import ErrorMessage from '../components/ErrorMessage';
+import api from '../config/axios';
 
 export default function RegisterView() {
 
@@ -20,12 +22,12 @@ export default function RegisterView() {
   
   const handleRegister = async (formData : RegisterForm) => {
     try {
-      const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, formData);
-      console.log(data);
+      const { data } = await api.post(`/api/auth/register`, formData);
+      toast.success(data.message);
       reset();
     } catch (error) {
       if(isAxiosError(error) && error.response) {
-        console.log('[authRegister] » axios',  error.response.data.error);
+        toast.error(error.response.data.error);
       }
     }
   }
