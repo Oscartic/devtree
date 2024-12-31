@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import slug from 'slug';
 import User from '../models/User';
 import { hasHashedPassword, comparePassword } from '../utils/auth';
+import { generateJWT } from '../utils/jwt';
 
 export const createAccount = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -47,7 +48,9 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       res.status(401).send({'error': error.message});
       return;
     }
-    res.status(200).send({'message': 'Login successful'});
+    const token = generateJWT({id: identifyUser._id});
+
+    res.status(200).send({'message': 'Login successful', token});
     return;
   } catch (error) {
     res.status(501).send({ error });
