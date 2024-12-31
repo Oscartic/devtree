@@ -16,14 +16,14 @@ export const createAccount = async (req: Request, res: Response): Promise<void> 
     const handle = slug(req.body.handle, '');
     const handleExists = await User.findOne({ handle });
     if(handleExists) {
-      res.status(409).send({'message': 'Handle already exists'});
+      res.status(409).send({'error': 'Handle already exists'});
       return;
     }
     const user = new User(req.body);
     user.password = await hasHashedPassword(password);
     user.handle = handle;
     user.save();
-    res.status(201).send({'message': 'User created successfully'});
+    res.status(201).send({'error': 'User created successfully'});
   } catch (error) {
     res.status(501).send({ error });
   }
